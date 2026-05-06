@@ -1,0 +1,42 @@
+.transaction-card {
+  display: grid;
+  gap: 1rem;
+}
+
+label {
+  display: grid;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+input {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.85rem;
+  font-size: 1rem;
+}
+
+button {
+  width: fit-content;
+  padding: 0.95rem 1.25rem;
+  background: #f97316;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ea580c;
+}
+
+.success {
+  color: #92400e;
+}
+
+.error {
+  color: #b91c1c;
+}

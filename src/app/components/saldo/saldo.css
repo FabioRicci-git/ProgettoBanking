@@ -1,0 +1,28 @@
+.saldo-card {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: #ecfdf5;
+  border: 1px solid #d1fae5;
+}
+
+.saldo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.saldo-header span {
+  color: #065f46;
+  font-weight: 600;
+}
+
+.saldo-header strong {
+  font-size: 1.85rem;
+  color: #064e3b;
+}
+
+p {
+  margin: 1rem 0 0;
+  color: #065f46;
+}
