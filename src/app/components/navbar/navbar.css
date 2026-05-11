@@ -3,26 +3,43 @@
 }
 
 .navbar {
-  width: 250px;
+  width: 270px;
   min-height: 100vh;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #e2e8f0 100%);
-  border-right: 1px solid #d1d5db;
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+  background: linear-gradient(185deg, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 0.98));
+  border-right: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 20px 45px rgba(2, 6, 23, 0.45);
   display: flex;
   flex-direction: column;
-  padding: 1.5rem;
-  gap: 1.5rem;
+  padding: 1.35rem 1rem;
+  gap: 1.2rem;
 }
 
 .navbar-logo {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #374151;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: #f8fbff;
 }
 
 .navbar-logo a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   color: inherit;
   text-decoration: none;
+}
+
+.logo-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2563eb, #06b6d4);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
 }
 
 .sidebar-links {
@@ -31,7 +48,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.32rem;
 }
 
 .sidebar-links li {
@@ -39,54 +56,67 @@
 }
 
 .sidebar-links a {
-  display: block;
-  padding: 0.95rem 1rem;
-  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.75rem 0.8rem;
+  color: #b9c6e5;
   text-decoration: none;
   font-weight: 600;
-  border-radius: 0.85rem;
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  border-radius: 0.8rem;
+  border: 1px solid transparent;
+  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
   position: relative;
 }
 
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(125, 211, 252, 0.25);
+  color: #e0f2fe;
+  font-size: 0.58rem;
+  letter-spacing: 0.02em;
+  font-weight: 800;
+}
+
 .sidebar-links a:hover {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: #ffffff;
-  transform: translateX(5px);
+  border-color: rgba(56, 189, 248, 0.45);
+  color: #f8fbff;
+  background: rgba(30, 64, 175, 0.26);
+  transform: translateX(2px);
 }
 
 .sidebar-links a.active {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(6, 182, 212, 0.85));
+  color: #f8fbff;
+  border-color: transparent;
+}
+
+.sidebar-links a.active .nav-icon {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(224, 242, 254, 0.45);
 }
 
 .sidebar-links a::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  border-top-left-radius: 0.85rem;
-  border-bottom-left-radius: 0.85rem;
+  top: 7px;
+  bottom: 7px;
+  width: 3px;
+  border-radius: 999px;
   background: transparent;
   transition: background-color 0.2s ease;
 }
 
-.sidebar-links a:hover,
-.sidebar-links a:focus,
-.sidebar-links a.active {
-  background: #ecfdf5;
-  color: #166534;
-}
-
 .sidebar-links a:hover::before,
 .sidebar-links a.active::before {
-  background: #22c55e;
-}
-
-.sidebar-links a:hover {
-  transform: translateX(1px);
+  background: #67e8f9;
 }
 
 .navbar-actions {
@@ -95,19 +125,19 @@
 
 .btn-logout {
   width: 100%;
-  background: #10b981;
-  color: #ffffff;
+  background: linear-gradient(135deg, #dc2626, #f97316);
+  color: #fff7ed;
   border: none;
-  padding: 0.95rem 1rem;
-  border-radius: 0.85rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.8rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: filter 0.2s ease;
 }
 
 .btn-logout:hover,
 .btn-logout:focus {
-  background: #059669;
+  filter: brightness(1.08);
 }
 
 @media screen and (max-width: 900px) {
@@ -115,7 +145,7 @@
     width: 100%;
     min-height: auto;
     border-right: none;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
     box-shadow: none;
   }
 }

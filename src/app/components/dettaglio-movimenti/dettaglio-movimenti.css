@@ -1,32 +1,29 @@
 .details-card {
-  padding: 1.5rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  animation: fadeInUp 0.8s ease-out forwards;
-  opacity: 0;
+  padding: 1.3rem;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.58);
 }
 
 .details-card h3 {
   margin-top: 0;
-  color: #0f172a;
+  margin-bottom: 0.6rem;
+  color: #f8fbff;
 }
 
 .details-card p {
-  margin: 0.75rem 0;
-  color: #475569;
+  margin: 0.55rem 0;
+  color: #b9c6e5;
+}
+
+.details-card strong {
+  color: #e2e8f0;
 }
 
 .empty-state {
-  color: #64748b;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  color: #b9c6e5;
+  border: 1px dashed rgba(148, 163, 184, 0.38);
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.42);
+  padding: 1rem;
 }
