@@ -28,8 +28,12 @@ export class Prelievo {
       return;
     }
 
-    this.bank.withdraw(amount);
-    this.success.set(`Prelievo eseguito: €${amount.toFixed(2)}`);
-    this.amount.set('');
+    try {
+      this.bank.withdraw(amount);
+      this.success.set(`Prelievo eseguito: â‚¬${amount.toFixed(2)}`);
+      this.amount.set('');
+    } catch (error) {
+      this.error.set(error instanceof Error ? error.message : 'Errore durante il prelievo.');
+    }
   }
 }

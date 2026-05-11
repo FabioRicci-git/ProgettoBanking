@@ -1,1 +1,5 @@
-<p>saldo works!</p>
+<div class="status-card">
+  <div class="status-label">Saldo disponibile</div>
+  <div class="balance">{{ bank.balance() | number:'1.2-2' }} €</div>
+  <p class="status-note">Il saldo si aggiorna immediatamente dopo ogni deposito, prelievo o conversione.</p>
+</div>

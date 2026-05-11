@@ -1,55 +1,165 @@
 <div class="app-shell">
-  <app-navbar></app-navbar>
+  <ng-container *ngIf="authService.isAuthenticated; else loginScreen">
+    <app-navbar></app-navbar>
 
-  <main class="home-content">
-    <section class="welcome-panel">
-      <h1>Benvenuto in ProgettoBanking</h1>
-      <p>Usa il menu laterale per accedere rapidamente a saldo, deposito, prelievo, conversioni e movimenti.</p>
-    </section>
+    <main class="page-main">
+      <section class="page-panel" *ngIf="isPage('#home')" id="home">
+        <div class="page-head">
+          <span class="page-badge">Home</span>
+          <h1>Benvenuto in ProgettoBanking</h1>
+          <p>Accedi rapidamente alle operazioni bancarie più importanti: saldo, deposito, prelievo, conversioni e movimenti.</p>
+        </div>
 
-    <section id="saldo" class="dashboard-section">
-      <h2>Saldo</h2>
-      <app-saldo></app-saldo>
-    </section>
+        <div class="hero-grid">
+          <div class="hero-card" (click)="navigateTo('#saldo')">
+            <h2>Saldo aggiornato</h2>
+            <p>Controlla il tuo saldo in tempo reale con un'esperienza chiara e sicura.</p>
+            <button class="card-button">Vai al Saldo</button>
+          </div>
+          <div class="hero-card" (click)="navigateTo('#deposito')">
+            <h2>Depositi e prelievi</h2>
+            <p>Esegui movimenti con pochi clic e tieni traccia delle operazioni effettuate.</p>
+            <button class="card-button">Vai ai Movimenti</button>
+          </div>
+          <div class="hero-card" (click)="navigateTo('#converti-fiat')">
+            <h2>Conversioni</h2>
+            <p>Passa da fiat a crypto e viceversa con tassi immediatamente visibili.</p>
+            <button class="card-button">Vai alle Conversioni</button>
+          </div>
+        </div>
 
-    <section id="deposito" class="dashboard-section">
-      <h2>Deposito</h2>
-      <app-deposito></app-deposito>
-    </section>
+        <div class="stats-section">
+          <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Accesso</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">Sicuro</div>
+            <div class="stat-label">Sistema</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">Veloce</div>
+            <div class="stat-label">Operazioni</div>
+          </div>
+        </div>
+      </section>
 
-    <section id="prelievo" class="dashboard-section">
-      <h2>Prelievo</h2>
-      <app-prelievo></app-prelievo>
-    </section>
+      <section class="page-panel" *ngIf="isPage('#saldo')" id="saldo">
+        <div class="page-head">
+          <span class="page-badge">Saldo</span>
+          <h1>Il tuo saldo</h1>
+          <p>Visualizza il saldo disponibile e scopri subito quanto puoi spendere o risparmiare.</p>
+        </div>
+        <app-saldo></app-saldo>
+      </section>
 
-    <section id="converti-cripto" class="dashboard-section">
-      <h2>Converti Cripto</h2>
-      <app-converti-cripto></app-converti-cripto>
-    </section>
+      <section class="page-panel" *ngIf="isPage('#deposito')" id="deposito">
+        <div class="page-head">
+          <span class="page-badge">Deposito</span>
+          <h1>Effettua un deposito</h1>
+          <p>Aggiungi denaro al tuo conto in modo rapido e sicuro.</p>
+        </div>
+        <app-deposito></app-deposito>
+      </section>
 
-    <section id="converti-fiat" class="dashboard-section">
-      <h2>Converti Fiat</h2>
-      <app-converti-fiat></app-converti-fiat>
-    </section>
+      <section class="page-panel" *ngIf="isPage('#prelievo')" id="prelievo">
+        <div class="page-head">
+          <span class="page-badge">Prelievo</span>
+          <h1>Preleva fondi</h1>
+          <p>Scegli l’importo da prelevare e controlla immediatamente l’esito dell’operazione.</p>
+        </div>
+        <app-prelievo></app-prelievo>
+      </section>
 
-    <section id="lista-movimenti" class="dashboard-section">
-      <h2>Lista Movimenti</h2>
-      <app-lista-movimenti></app-lista-movimenti>
-    </section>
+      <section class="page-panel" *ngIf="isPage('#converti-cripto')" id="converti-cripto">
+        <div class="page-head">
+          <span class="page-badge">Converti Cripto</span>
+          <h1>Conversione Crypto</h1>
+          <p>Converti euro in criptovalute come BTC o ETH e monitora il risultato subito.</p>
+        </div>
+        <app-converti-cripto></app-converti-cripto>
+      </section>
 
-    <section id="dettaglio-movimenti" class="dashboard-section">
-      <h2>Dettaglio Movimenti</h2>
-      <app-dettaglio-movimenti></app-dettaglio-movimenti>
-    </section>
+      <section class="page-panel" *ngIf="isPage('#converti-fiat')" id="converti-fiat">
+        <div class="page-head">
+          <span class="page-badge">Converti Fiat</span>
+          <h1>Conversione Valute</h1>
+          <p>Converti euro in dollari o sterline e confronta i tassi con chiarezza.</p>
+        </div>
+        <app-converti-fiat></app-converti-fiat>
+      </section>
 
-    <section id="trasferimenti" class="dashboard-section">
-      <h2>Trasferimenti</h2>
-      <p>In questa sezione potrai gestire i trasferimenti bancari e visualizzare lo stato delle operazioni.</p>
-    </section>
+      <section class="page-panel" *ngIf="isPage('#lista-movimenti')" id="lista-movimenti">
+        <div class="page-head">
+          <span class="page-badge">Movimenti</span>
+          <h1>Lista movimenti</h1>
+          <p>Visualizza le operazioni eseguite e seleziona una transazione per il dettaglio.</p>
+        </div>
+        <app-lista-movimenti></app-lista-movimenti>
+      </section>
 
-    <section id="profilo" class="dashboard-section">
-      <h2>Profilo</h2>
-      <p>Gestisci il profilo del cliente e le impostazioni dell'account.</p>
-    </section>
-  </main>
+      <section class="page-panel" *ngIf="isPage('#dettaglio-movimenti')" id="dettaglio-movimenti">
+        <div class="page-head">
+          <span class="page-badge">Dettaglio</span>
+          <h1>Dettaglio movimenti</h1>
+          <p>Guarda tutte le informazioni di una singola transazione selezionata.</p>
+        </div>
+        <app-dettaglio-movimenti></app-dettaglio-movimenti>
+      </section>
+
+      <section class="page-panel" *ngIf="isPage('#trasferimenti')" id="trasferimenti">
+        <div class="page-head">
+          <span class="page-badge">Trasferimenti</span>
+          <h1>Trasferimenti</h1>
+          <p>Invia fondi a un altro conto o pianifica trasferimenti futuri in maniera semplice.</p>
+        </div>
+        <div class="info-card">
+          <p>In questa sezione potrai impostare i dettagli del beneficiario, scegliere l’importo e confermare l’operazione. Il sistema segue sempre lo stato del trasferimento e ti mostra un riepilogo chiaro.</p>
+        </div>
+      </section>
+
+      <section class="page-panel" *ngIf="isPage('#profilo')" id="profilo">
+        <div class="page-head">
+          <span class="page-badge">Profilo</span>
+          <h1>Il tuo profilo</h1>
+          <p>Visualizza le informazioni del tuo account e gestisci le impostazioni personali.</p>
+        </div>
+        <div class="info-card">
+          <p>Puoi aggiornare i dati dell’account, gestire le preferenze di sicurezza e visualizzare i dettagli dell’utente in modo chiaro.</p>
+        </div>
+      </section>
+    </main>
+
+  </ng-container>
+
+  <footer class="app-footer">
+    <p>&copy; 2026 ProgettoBanking - Gestisci il tuo denaro con sicurezza e semplicità</p>
+  </footer>
+
+  <ng-template #loginScreen>
+    <main class="login-main">
+      <div class="login-card">
+        <div class="login-header">
+          <h1>Login</h1>
+          <p>Accedi con email o nome utente e password per entrare in ProgettoBanking.</p>
+        </div>
+
+        <form class="login-form" (submit)="submitLogin($event)">
+          <label>
+            Email o nome utente
+            <input type="text" placeholder="Inserisci email o nome utente" [value]="credential()" (input)="credential.set($any($event.target).value)" />
+          </label>
+
+          <label>
+            Password
+            <input type="password" placeholder="Password" [value]="password()" (input)="password.set($any($event.target).value)" />
+          </label>
+
+          <div class="login-error" *ngIf="loginError()">{{ loginError() }}</div>
+
+          <button type="submit" class="login-button">Accedi</button>
+        </form>
+      </div>
+    </main>
+  </ng-template>
 </div>

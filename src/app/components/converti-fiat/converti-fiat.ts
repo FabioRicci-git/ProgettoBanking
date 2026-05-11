@@ -30,9 +30,14 @@ export class ConvertiFiat {
       return;
     }
 
-    const rates = { USD: 1.05, GBP: 0.86 } as const;
-    const result = amount * rates[currency];
-    this.bank.convertFiat(amount, currency, rates[currency]);
+    const rates: Record<string, number> = { USD: 1.05, GBP: 0.86 };
+    const rate = rates[currency];
+    if (!rate) {
+      this.error.set('Valuta non supportata.');
+      return;
+    }
+    const result = amount * rate;
+    this.bank.convertFiat(amount, currency, rate);
     this.result.set(`${result.toFixed(2)} ${currency}`);
     this.amount.set('');
   }

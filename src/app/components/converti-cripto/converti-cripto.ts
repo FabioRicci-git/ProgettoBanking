@@ -32,8 +32,13 @@ export class ConvertiCripto {
 
     const rate = currency === 'BTC' ? 35000 : 2500;
     const cryptoAmount = amount / rate;
-    this.bank.convertCrypto(amount, currency, rate);
-    this.result.set(`${cryptoAmount.toFixed(6)} ${currency}`);
-    this.amount.set('');
+
+    try {
+      this.bank.convertCrypto(amount, currency, rate);
+      this.result.set(`${cryptoAmount.toFixed(6)} ${currency}`);
+      this.amount.set('');
+    } catch (error) {
+      this.error.set(error instanceof Error ? error.message : 'Errore nella conversione crypto.');
+    }
   }
 }

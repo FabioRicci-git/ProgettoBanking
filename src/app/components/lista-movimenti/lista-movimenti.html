@@ -1,1 +1,15 @@
-<p>lista-movimenti works!</p>
+<div class="movements-list">
+  <div *ngIf="bank.transactions().length === 0" class="empty-state">
+    Nessun movimento disponibile. Esegui una transazione per vedere la cronologia.
+  </div>
+
+  <ul *ngIf="bank.transactions().length > 0">
+    <li *ngFor="let tx of bank.transactions()" (click)="selectTransaction(tx.id)">
+      <div>
+        <strong>{{ tx.type | titlecase }}</strong>
+        <small>{{ tx.date | date:'short' }}</small>
+      </div>
+      <span>{{ tx.amount | number:'1.2-2' }} {{ tx.currency || 'EUR' }}</span>
+    </li>
+  </ul>
+</div>

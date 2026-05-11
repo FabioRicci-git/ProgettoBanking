@@ -1,1 +1,12 @@
-<p>dettaglio-movimenti works!</p>
+<div class="details-card" *ngIf="bank.selectedTransaction(); else noSelection">
+  <h3>{{ bank.selectedTransaction()?.type | titlecase }}</h3>
+  <p><strong>Importo:</strong> {{ bank.selectedTransaction()?.amount | number:'1.2-2' }} {{ bank.selectedTransaction()?.currency || 'EUR' }}</p>
+  <p *ngIf="bank.selectedTransaction()?.rate"><strong>Tasso:</strong> {{ bank.selectedTransaction()?.rate | number:'1.2-2' }}</p>
+  <p><strong>Data:</strong> {{ bank.selectedTransaction()?.date | date:'long' }}</p>
+  <p *ngIf="bank.selectedTransaction()?.type === 'convert-crypto'">Conto ridotto dell'importo in euro per conversione crypto.</p>
+  <p *ngIf="bank.selectedTransaction()?.type === 'convert-fiat'">Il saldo è stato aggiornato applicando il tasso selezionato.</p>
+</div>
+
+<ng-template #noSelection>
+  <div class="empty-state">Seleziona un movimento dalla lista per vedere i dettagli qui.</div>
+</ng-template>

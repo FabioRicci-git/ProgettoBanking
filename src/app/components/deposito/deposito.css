@@ -1,6 +1,29 @@
 .transaction-card {
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.5rem;
+  padding: 1.75rem;
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.transaction-header {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.transaction-header h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.25rem;
+}
+
+.transaction-header p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.7;
 }
 
 label {
@@ -16,6 +39,14 @@ input {
   border: 1px solid #cbd5e1;
   border-radius: 0.85rem;
   font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+  transform: translateY(-2px);
 }
 
 button {
@@ -27,6 +58,12 @@ button {
   border-radius: 0.85rem;
   font-weight: 700;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
 }
 
 button:hover {
@@ -39,4 +76,15 @@ button:hover {
 
 .error {
   color: #b91c1c;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

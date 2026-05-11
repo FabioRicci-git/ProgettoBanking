@@ -2,6 +2,8 @@
   padding: 1.5rem;
   border: 1px solid #e2e8f0;
   border-radius: 1rem;
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
 }
 
 .details-card h3 {
@@ -16,4 +18,15 @@
 
 .empty-state {
   color: #64748b;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

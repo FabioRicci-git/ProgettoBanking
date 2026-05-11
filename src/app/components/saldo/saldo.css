@@ -3,6 +3,39 @@
   border-radius: 1rem;
   background: #ecfdf5;
   border: 1px solid #d1fae5;
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.status-card {
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  display: grid;
+  gap: 1rem;
+  animation: fadeInUp 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.status-label {
+  color: #0f172a;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.balance {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.status-note {
+  margin: 0;
+  color: #475569;
+  line-height: 1.75;
 }
 
 .saldo-header {
@@ -25,4 +58,15 @@
 p {
   margin: 1rem 0 0;
   color: #065f46;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

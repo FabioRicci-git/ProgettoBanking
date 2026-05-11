@@ -1,1 +1,24 @@
-<p>converti-fiat works!</p>
+<div class="transaction-card">
+  <div class="transaction-header">
+    <h2>Converti valute</h2>
+    <p>Converti euro in valute estere, come dollari o sterline, con un calcolo immediato.</p>
+  </div>
+
+  <label>
+    Importo in euro
+    <input type="number" min="0" step="0.01" [value]="amount()" (input)="onAmountChange($event)" placeholder="€ 0,00" />
+  </label>
+
+  <label>
+    Seleziona valuta
+    <select [value]="currency()" (change)="currency.set($any($event.target).value)">
+      <option value="USD">Dollaro USA (USD)</option>
+      <option value="GBP">Sterlina (GBP)</option>
+    </select>
+  </label>
+
+  <button type="button" (click)="convert()">Converti</button>
+
+  <p class="result" *ngIf="result()">Risultato: {{ result() }}</p>
+  <p class="error" *ngIf="error()">{{ error() }}</p>
+</div>
