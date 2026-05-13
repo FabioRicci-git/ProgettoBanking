@@ -5,7 +5,10 @@
     <main class="page-main">
       <section class="page-panel" *ngIf="isPage('#home')" id="home">
         <div class="page-head">
-          <div class="brand-row"><span class="brand-logo">PB</span><span class="brand-text">Private Digital Banking</span></div>
+          <div class="brand-row"
+            ><span class="brand-logo" aria-hidden="true"><app-icon name="brand" /></span
+            ><span class="brand-text">Private Digital Banking</span></div
+          >
           <span class="page-badge">Home</span>
           <h1>Benvenuto in ProgettoBanking</h1>
           <p>Accedi rapidamente alle operazioni bancarie più importanti: saldo, deposito, prelievo, conversioni e movimenti.</p>
@@ -13,19 +16,19 @@
 
         <div class="hero-grid">
           <div class="hero-card" (click)="navigateTo('#saldo')">
-            <span class="hero-icon">SA</span>
+            <span class="hero-icon" aria-hidden="true"><app-icon name="hero-balance" /></span>
             <h2>Saldo aggiornato</h2>
             <p>Controlla il tuo saldo in tempo reale con un'esperienza chiara e sicura.</p>
             <button class="card-button">Vai al Saldo</button>
           </div>
           <div class="hero-card" (click)="navigateTo('#deposito')">
-            <span class="hero-icon">MV</span>
+            <span class="hero-icon" aria-hidden="true"><app-icon name="hero-operations" /></span>
             <h2>Depositi e prelievi</h2>
             <p>Esegui movimenti con pochi clic e tieni traccia delle operazioni effettuate.</p>
             <button class="card-button">Vai ai Movimenti</button>
           </div>
           <div class="hero-card" (click)="navigateTo('#converti-fiat')">
-            <span class="hero-icon">FX</span>
+            <span class="hero-icon" aria-hidden="true"><app-icon name="hero-convert" /></span>
             <h2>Conversioni</h2>
             <p>Passa da fiat a crypto e viceversa con tassi immediatamente visibili.</p>
             <button class="card-button">Vai alle Conversioni</button>

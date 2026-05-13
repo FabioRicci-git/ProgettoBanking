@@ -9,11 +9,12 @@ import { DettaglioMovimenti } from "./components/dettaglio-movimenti/dettaglio-m
 import { ListaMovimenti } from "./components/lista-movimenti/lista-movimenti";
 import { ConvertiFiat } from "./components/converti-fiat/converti-fiat";
 import { AuthService } from './auth.service';
+import { AppIcon } from './ui/app-icon/app-icon';
 
 @Component({
   standalone: true,
   selector: 'app-root',
-  imports: [CommonModule, Saldo, Deposito, ConvertiCripto, Prelievo, Navbar, DettaglioMovimenti, ListaMovimenti, ConvertiFiat],
+  imports: [CommonModule, Saldo, Deposito, ConvertiCripto, Prelievo, Navbar, DettaglioMovimenti, ListaMovimenti, ConvertiFiat, AppIcon],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

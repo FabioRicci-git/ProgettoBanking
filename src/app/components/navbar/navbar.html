@@ -1,23 +1,64 @@
 <nav class="navbar">
   <div class="navbar-logo">
-    <a href="#home"><span class="logo-mark">PB</span> ProgettoBanking</a>
+    <a href="#home"
+      ><span class="logo-mark" aria-hidden="true"><app-icon name="brand" /></span> ProgettoBanking</a
+    >
   </div>
 
   <ul class="sidebar-links">
-    <li><a href="#home" [class.active]="isActive('#home')"><span class="nav-icon">HM</span> Home</a></li>
-    <li><a href="#saldo" [class.active]="isActive('#saldo')"><span class="nav-icon">SA</span> Saldo</a></li>
-    <li><a href="#deposito" [class.active]="isActive('#deposito')"><span class="nav-icon">DP</span> Deposito</a></li>
-    <li><a href="#prelievo" [class.active]="isActive('#prelievo')"><span class="nav-icon">PR</span> Prelievo</a></li>
-    <li><a href="#converti-cripto" [class.active]="isActive('#converti-cripto')"><span class="nav-icon">CC</span> Converti Cripto</a></li>
-    <li><a href="#converti-fiat" [class.active]="isActive('#converti-fiat')"><span class="nav-icon">CF</span> Converti Fiat</a></li>
-    <li><a href="#lista-movimenti" [class.active]="isActive('#lista-movimenti')"><span class="nav-icon">LM</span> Lista Movimenti</a></li>
-    <li><a href="#dettaglio-movimenti" [class.active]="isActive('#dettaglio-movimenti')"><span class="nav-icon">DM</span> Dettaglio Movimenti</a></li>
-    <li><a href="#trasferimenti" [class.active]="isActive('#trasferimenti')"><span class="nav-icon">TR</span> Trasferimenti</a></li>
-    <li><a href="#profilo" [class.active]="isActive('#profilo')"><span class="nav-icon">PF</span> Profilo</a></li>
+    <li>
+      <a href="#home" [class.active]="isActive('#home')"
+        ><span class="nav-icon" aria-hidden="true"><app-icon name="home" /></span> Home</a
+      >
+    </li>
+    <li>
+      <a href="#saldo" [class.active]="isActive('#saldo')"
+        ><span class="nav-icon" aria-hidden="true"><app-icon name="wallet" /></span> Saldo</a
+      >
+    </li>
+    <li>
+      <a href="#deposito" [class.active]="isActive('#deposito')"
+        ><span class="nav-icon" aria-hidden="true"><app-icon name="deposit" /></span> Deposito</a
+      >
+    </li>
+    <li>
+      <a href="#prelievo" [class.active]="isActive('#prelievo')"
+        ><span class="nav-icon" aria-hidden="true"><app-icon name="withdraw" /></span> Prelievo</a
+      >
+    </li>
+    <li>
+      <a href="#converti-cripto" [class.active]="isActive('#converti-cripto')"
+        ><span class="nav-icon" aria-hidden="true"><app-icon name="crypto" /></span> Converti Cripto</a
+      >
+    </li>
+    <li>
+      <a href="#converti-fiat" [class.active]="isActive('#converti-fiat')"
+        ><span class="nav-icon" aria-hidden="true"><app-icon name="exchange" /></span> Converti Fiat</a
+      >
+    </li>
+    <li>
+      <a href="#lista-movimenti" [class.active]="isActive('#lista-movimenti')"
+        ><span class="nav-icon" aria-hidden="true"><app-icon name="movements" /></span> Lista Movimenti</a
+      >
+    </li>
+    <li>
+      <a href="#dettaglio-movimenti" [class.active]="isActive('#dettaglio-movimenti')"
+        ><span class="nav-icon" aria-hidden="true"><app-icon name="detail" /></span> Dettaglio Movimenti</a
+      >
+    </li>
+    <li>
+      <a href="#trasferimenti" [class.active]="isActive('#trasferimenti')"
+        ><span class="nav-icon" aria-hidden="true"><app-icon name="transfer" /></span> Trasferimenti</a
+      >
+    </li>
+    <li>
+      <a href="#profilo" [class.active]="isActive('#profilo')"
+        ><span class="nav-icon" aria-hidden="true"><app-icon name="profile" /></span> Profilo</a
+      >
+    </li>
   </ul>
 
   <div class="navbar-actions">
-    <button class="btn-logout" (click)="logout()">Logout</button>
+    <button type="button" class="btn-logout" (click)="logout()">Logout</button>
   </div>
 </nav>
-

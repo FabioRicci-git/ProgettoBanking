@@ -1,5 +1,84 @@
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+  --pb-font: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Base — verde grafite caldo */
+  --pb-bg-void: #080d0b;
+  --pb-bg-mid: #0f1a16;
+  --pb-bg-deep: #050807;
+
+  /* Mesh di sfondo (emerald / teal / accenno ambra) */
+  --pb-bg-mesh-1: #059669;
+  --pb-bg-mesh-2: #14b8a6;
+  --pb-bg-mesh-3: #34d399;
+  --pb-bg-mesh-4: #d97706;
+
+  /* Testo */
+  --pb-text: #f0fdf4;
+  --pb-text-muted: #8da399;
+  --pb-text-soft: #c9d9d0;
+  --pb-text-label: #b8d4c4;
+  --pb-text-strong: #dcebe4;
+  --pb-text-on-accent: #ffffff;
+
+  /* Superfici (slate verdastro) */
+  --pb-surface-1: 15, 26, 22;
+  --pb-surface-2: 24, 42, 36;
+  --pb-surface-3: 32, 52, 45;
+  --pb-border: rgba(148, 180, 165, 0.2);
+  --pb-border-accent: rgba(52, 211, 153, 0.38);
+  --pb-border-strong: rgba(45, 212, 191, 0.3);
+
+  /* Accenti principali */
+  --pb-accent-start: #047857;
+  --pb-accent-mid: #10b981;
+  --pb-accent-end: #2dd4bf;
+  --pb-accent-glow: rgba(16, 185, 129, 0.22);
+  --pb-focus-ring: rgba(45, 212, 191, 0.38);
+
+  /* Link / highlight secondari */
+  --pb-link: #6ee7b7;
+  --pb-link-soft: #a7f3d0;
+  --pb-brand-tagline: #86efac;
+  --pb-badge-text: #d1fae5;
+
+  /* Ombre */
+  --pb-shadow-rgb: 2, 14, 11;
+  --pb-shadow-sm: 0 4px 22px rgba(var(--pb-shadow-rgb), 0.42);
+  --pb-shadow-md: 0 18px 52px rgba(var(--pb-shadow-rgb), 0.55);
+  --pb-shadow-glow: 0 0 88px rgba(16, 185, 129, 0.14);
+  --pb-shadow-btn: 0 8px 28px rgba(4, 120, 87, 0.38);
+  --pb-shadow-btn-hover: 0 14px 40px rgba(5, 150, 105, 0.45);
+
+  /* Stati */
+  --pb-success: #5eead4;
+  --pb-danger: #fca5a5;
+  --pb-danger-strong: #f87171;
+
+  /* Logout (caldo, separato dal brand) */
+  --pb-logout-start: #be123c;
+  --pb-logout-end: #ea580c;
+  --pb-logout-text: #fff7ed;
+  --pb-logout-shadow: 0 8px 24px rgba(190, 18, 60, 0.32);
+  --pb-logout-shadow-hover: 0 12px 32px rgba(190, 18, 60, 0.4);
+
+  --pb-radius-sm: 12px;
+  --pb-radius-md: 16px;
+  --pb-radius-lg: 22px;
+  --pb-radius-xl: 28px;
+  --pb-radius-full: 999px;
+  --pb-transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 html,
@@ -10,11 +89,29 @@ body {
 }
 
 body {
-  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-family: var(--pb-font);
+  font-feature-settings:
+    'ss01' on,
+    'cv01' on;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--pb-bg-void);
+  color: var(--pb-text-soft);
+}
+
+::selection {
+  background: rgba(52, 211, 153, 0.3);
+  color: var(--pb-text);
 }
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--pb-accent-mid);
+  outline-offset: 2px;
 }

@@ -1,9 +1,11 @@
 import { Component, HostListener, signal, inject } from '@angular/core';
 import { AuthService } from '../../auth.service';
+import { AppIcon } from '../../ui/app-icon/app-icon';
 
 @Component({
+  standalone: true,
   selector: 'app-navbar',
-  imports: [],
+  imports: [AppIcon],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
