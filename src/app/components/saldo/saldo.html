@@ -1,5 +1,11 @@
 <div class="status-card">
   <div class="status-label">Saldo disponibile</div>
-  <div class="balance">{{ bank.balance() | number:'1.2-2' }} €</div>
-  <p class="status-note">Il saldo si aggiorna immediatamente dopo ogni deposito, prelievo o conversione.</p>
+  <div class="balance" *ngIf="!bank.loading(); else loadingBalance">
+    {{ bank.balance() | number:'1.2-2' }} {{ bank.currency() }}
+  </div>
+  <ng-template #loadingBalance>
+    <div class="balance">Caricamento…</div>
+  </ng-template>
+  <p class="status-note" *ngIf="bank.ownerName()">Intestatario: {{ bank.ownerName() }}</p>
+  <p class="status-note">Dati aggiornati dal server dopo ogni deposito o prelievo.</p>
 </div>

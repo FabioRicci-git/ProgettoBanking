@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BankStore } from '../../app.state';
+import { AuthService } from '../../auth.service';
+import { BankingApiService } from '../../servizi/servizio';
 
 @Component({
   standalone: true,
@@ -10,35 +11,36 @@ import { BankStore } from '../../app.state';
   styleUrl: './converti-cripto.css',
 })
 export class ConvertiCripto {
-  protected readonly bank = inject(BankStore);
-  protected readonly amount = signal('');
+  private readonly api = inject(BankingApiService);
+  private readonly auth = inject(AuthService);
+
   protected readonly currency = signal('BTC');
   protected readonly result = signal('');
   protected readonly error = signal('');
-
-  protected onAmountChange(event: Event) {
-    this.error.set('');
-    this.result.set('');
-    this.amount.set((event.target as HTMLInputElement).value);
-  }
+  protected readonly pending = signal(false);
 
   protected convert() {
-    const amount = Number(this.amount());
-    const currency = this.currency();
-    if (!amount || amount <= 0) {
-      this.error.set('Inserisci un importo valido.');
+    const id = this.auth.accountId();
+    if (!id) {
+      this.error.set('Sessione non valida.');
       return;
     }
 
-    const rate = currency === 'BTC' ? 35000 : 2500;
-    const cryptoAmount = amount / rate;
-
-    try {
-      this.bank.convertCrypto(amount, currency, rate);
-      this.result.set(`${cryptoAmount.toFixed(6)} ${currency}`);
-      this.amount.set('');
-    } catch (error) {
-      this.error.set(error instanceof Error ? error.message : 'Errore nella conversione crypto.');
-    }
+    this.pending.set(true);
+    this.error.set('');
+    this.result.set('');
+    this.api.convertCrypto(id, this.currency()).subscribe({
+      next: (res) => {
+        this.result.set(
+          `Saldo ${res.original_balance.toFixed(2)} ${res.from_currency} ≈ ` +
+            `${res.converted_amount} ${res.to_crypto} (prezzo ~${res.price} EUR)`,
+        );
+        this.pending.set(false);
+      },
+      error: (err: unknown) => {
+        this.error.set(err instanceof Error ? err.message : 'Errore nella conversione crypto.');
+        this.pending.set(false);
+      },
+    });
   }
 }

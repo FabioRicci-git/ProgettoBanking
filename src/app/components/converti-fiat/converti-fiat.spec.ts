@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { ConvertiFiat } from './converti-fiat';
 
@@ -8,9 +10,9 @@ describe('ConvertiFiat', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ConvertiFiat]
-    })
-    .compileComponents();
+      imports: [ConvertiFiat],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ConvertiFiat);
     component = fixture.componentInstance;

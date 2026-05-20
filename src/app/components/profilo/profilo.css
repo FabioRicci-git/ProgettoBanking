@@ -1,0 +1,198 @@
+.profilo-layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 380px);
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .profilo-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.profilo-block-title {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--pb-text);
+}
+
+.profilo-details {
+  border-radius: var(--pb-radius-lg);
+  border: 1px solid var(--pb-border);
+  background: rgba(var(--pb-surface-2), 0.35);
+  padding: 1.5rem 1.45rem;
+  box-shadow: var(--pb-shadow-sm);
+}
+
+.profilo-dl {
+  margin: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.profilo-row {
+  display: grid;
+  grid-template-columns: minmax(0, 160px) 1fr;
+  gap: 0.75rem;
+  align-items: baseline;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--pb-border);
+}
+
+.profilo-row:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.profilo-row dt {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--pb-text-muted);
+}
+
+.profilo-row dd {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pb-text-soft);
+  word-break: break-word;
+}
+
+.profilo-highlight {
+  color: var(--pb-accent-end) !important;
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+}
+
+.profilo-note {
+  margin: 1.15rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--pb-text-muted);
+}
+
+.profilo-card-wrap {
+  position: sticky;
+  top: 1rem;
+}
+
+.digital-card {
+  position: relative;
+  border-radius: var(--pb-radius-xl);
+  padding: 1.65rem 1.5rem 1.4rem;
+  min-height: 220px;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    #1e1b4b 0%,
+    #312e81 28%,
+    #4338ca 55%,
+    #2563eb 100%
+  );
+  border: 1px solid rgba(129, 140, 248, 0.4);
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.2),
+    0 28px 56px rgba(67, 56, 202, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  color: #f8fafc;
+  isolation: isolate;
+}
+
+.digital-card__glow {
+  position: absolute;
+  inset: -30% -20% auto -40%;
+  height: 120%;
+  background: radial-gradient(ellipse, rgba(129, 140, 248, 0.4) 0%, transparent 62%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.digital-card__chip {
+  position: relative;
+  z-index: 1;
+  width: 46px;
+  height: 34px;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #fde68a 0%, #d97706 45%, #92400e 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 4px 12px rgba(0, 0, 0, 0.35);
+  margin-bottom: 1.75rem;
+}
+
+.digital-card__chip::after {
+  content: '';
+  position: absolute;
+  inset: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  opacity: 0.5;
+}
+
+.digital-card__contactless {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 1;
+  color: rgba(236, 253, 245, 0.85);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.digital-card__brand {
+  position: relative;
+  z-index: 1;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  opacity: 0.9;
+  margin-bottom: 1.1rem;
+}
+
+.digital-card__pan {
+  position: relative;
+  z-index: 1;
+  font-family: ui-monospace, 'Cascadia Code', 'Segoe UI Mono', monospace;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  margin-bottom: auto;
+}
+
+.digital-card__footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.digital-card__label {
+  display: block;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.75;
+  margin-bottom: 0.2rem;
+}
+
+.digital-card__name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.digital-card__exp {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}

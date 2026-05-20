@@ -2,6 +2,9 @@
   <div class="transaction-header">
     <h2>Deposita fondi</h2>
     <p>Aggiungi rapidamente denaro al tuo conto e aumenta il saldo disponibile.</p>
+    <p class="current-balance">
+      Saldo attuale: <strong>{{ bank.balance() | number:'1.2-2' }} {{ bank.currency() }}</strong>
+    </p>
   </div>
 
   <label>
@@ -9,7 +12,9 @@
     <input type="number" min="0" step="0.01" [value]="amount()" (input)="onAmountChange($event)" placeholder="€ 0,00" />
   </label>
 
-  <button type="button" (click)="submitDeposit()">Deposita</button>
+  <button type="button" (click)="submitDeposit()" [disabled]="pending()">
+    {{ pending() ? 'Invio…' : 'Deposita' }}
+  </button>
 
   <p class="success" *ngIf="success()">{{ success() }}</p>
   <p class="error" *ngIf="error()">{{ error() }}</p>

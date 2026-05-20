@@ -14,6 +14,7 @@ export class Prelievo {
   protected readonly amount = signal('');
   protected readonly error = signal('');
   protected readonly success = signal('');
+  protected readonly pending = signal(false);
 
   protected onAmountChange(event: Event) {
     this.error.set('');
@@ -28,12 +29,21 @@ export class Prelievo {
       return;
     }
 
-    try {
-      this.bank.withdraw(amount);
-      this.success.set(`Prelievo eseguito: €${amount.toFixed(2)}`);
-      this.amount.set('');
-    } catch (error) {
-      this.error.set(error instanceof Error ? error.message : 'Errore durante il prelievo.');
-    }
+    this.pending.set(true);
+    this.error.set('');
+    this.success.set('');
+    this.bank.withdraw(amount).subscribe({
+      next: () => {
+        this.success.set(
+          `Prelievo eseguito: ${amount.toFixed(2)} ${this.bank.currency()}. Nuovo saldo: ${this.bank.balance().toFixed(2)} ${this.bank.currency()}`,
+        );
+        this.amount.set('');
+        this.pending.set(false);
+      },
+      error: (err: unknown) => {
+        this.error.set(err instanceof Error ? err.message : 'Errore durante il prelievo.');
+        this.pending.set(false);
+      },
+    });
   }
 }

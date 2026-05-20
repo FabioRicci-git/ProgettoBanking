@@ -1,23 +1,22 @@
 <div class="transaction-card">
   <div class="transaction-header">
     <h2>Converti in criptovaluta</h2>
-    <p>Trasforma un importo in euro in BTC o ETH usando un tasso di riferimento.</p>
+    <p>
+      Visualizza l’equivalente del <strong>saldo attuale</strong> in BTC o ETH (quotazione da API esterna).
+    </p>
   </div>
 
   <label>
-    Importo in euro
-    <input type="number" min="0" step="0.01" [value]="amount()" (input)="onAmountChange($event)" placeholder="€ 0,00" />
-  </label>
-
-  <label>
-    Seleziona criptovaluta
+    Criptovaluta di destinazione
     <select [value]="currency()" (change)="currency.set($any($event.target).value)">
       <option value="BTC">Bitcoin (BTC)</option>
       <option value="ETH">Ethereum (ETH)</option>
     </select>
   </label>
 
-  <button type="button" (click)="convert()">Converti</button>
+  <button type="button" (click)="convert()" [disabled]="pending()">
+    {{ pending() ? 'Calcolo…' : 'Converti' }}
+  </button>
 
   <p class="result" *ngIf="result()">Risultato: {{ result() }}</p>
   <p class="error" *ngIf="error()">{{ error() }}</p>

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BankStore } from '../../app.state';
 
@@ -9,6 +9,10 @@ import { BankStore } from '../../app.state';
   templateUrl: './saldo.html',
   styleUrl: './saldo.css',
 })
-export class Saldo {
+export class Saldo implements OnInit {
   protected readonly bank = inject(BankStore);
+
+  ngOnInit(): void {
+    this.bank.refreshFromApi().subscribe();
+  }
 }

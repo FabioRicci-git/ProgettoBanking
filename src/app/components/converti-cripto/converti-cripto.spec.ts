@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { ConvertiCripto } from './converti-cripto';
 
@@ -8,9 +10,9 @@ describe('ConvertiCripto', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ConvertiCripto]
-    })
-    .compileComponents();
+      imports: [ConvertiCripto],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ConvertiCripto);
     component = fixture.componentInstance;

@@ -6,7 +6,7 @@
   <ul *ngIf="bank.transactions().length > 0">
     <li *ngFor="let tx of bank.transactions()" (click)="selectTransaction(tx.id)">
       <div>
-        <strong>{{ tx.type | titlecase }}</strong>
+        <strong>{{ tx.type === 'deposit' ? 'Deposito' : 'Prelievo' }}</strong>
         <small>{{ tx.date | date:'short' }}</small>
       </div>
       <span>{{ tx.amount | number:'1.2-2' }} {{ tx.currency || 'EUR' }}</span>

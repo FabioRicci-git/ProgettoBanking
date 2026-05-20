@@ -14,6 +14,7 @@ export class Deposito {
   protected readonly amount = signal('');
   protected readonly error = signal('');
   protected readonly success = signal('');
+  protected readonly pending = signal(false);
 
   protected onAmountChange(event: Event) {
     this.error.set('');
@@ -28,8 +29,21 @@ export class Deposito {
       return;
     }
 
-    this.bank.deposit(amount);
-    this.success.set(`Deposito eseguito: €${amount.toFixed(2)}`);
-    this.amount.set('');
+    this.pending.set(true);
+    this.error.set('');
+    this.success.set('');
+    this.bank.deposit(amount).subscribe({
+      next: () => {
+        this.success.set(
+          `Deposito eseguito: ${amount.toFixed(2)} ${this.bank.currency()}. Nuovo saldo: ${this.bank.balance().toFixed(2)} ${this.bank.currency()}`,
+        );
+        this.amount.set('');
+        this.pending.set(false);
+      },
+      error: (err: unknown) => {
+        this.error.set(err instanceof Error ? err.message : 'Errore durante il deposito.');
+        this.pending.set(false);
+      },
+    });
   }
 }

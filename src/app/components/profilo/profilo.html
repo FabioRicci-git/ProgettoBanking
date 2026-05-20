@@ -1,0 +1,61 @@
+<div class="profilo-layout">
+  <div class="profilo-details">
+    <h2 class="profilo-block-title">Dati conto</h2>
+    <dl class="profilo-dl">
+      <div class="profilo-row">
+        <dt>Numero conto</dt>
+        <dd>{{ auth.accountId() ?? '—' }}</dd>
+      </div>
+      <div class="profilo-row">
+        <dt>Intestatario</dt>
+        <dd>{{ bank.ownerName() ?? '—' }}</dd>
+      </div>
+      <div class="profilo-row">
+        <dt>Saldo disponibile</dt>
+        <dd class="profilo-highlight">{{ bank.balance() | number:'1.2-2' }} {{ bank.currency() }}</dd>
+      </div>
+      <div class="profilo-row">
+        <dt>Valuta conto</dt>
+        <dd>{{ bank.currency() }}</dd>
+      </div>
+      <div class="profilo-row">
+        <dt>Movimenti registrati</dt>
+        <dd>{{ movementsCount() }}</dd>
+      </div>
+    </dl>
+    <p class="profilo-note">
+      I dati sono quelli restituiti dall’API del conto. La carta digitale è solo un elemento grafico di anteprima.
+    </p>
+  </div>
+
+  <div class="profilo-card-wrap">
+    <h2 class="profilo-block-title">Carta digitale</h2>
+    <div class="digital-card" role="img" aria-label="Carta di credito digitale dimostrativa">
+      <div class="digital-card__glow"></div>
+      <div class="digital-card__chip"></div>
+      <div class="digital-card__contactless" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
+          <path
+            d="M4 8c4 0 8 4 8 8M4 4c6 0 12 6 12 12M8 4c5 0 10 5 10 10"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            opacity="0.85"
+          />
+        </svg>
+      </div>
+      <div class="digital-card__brand">PRIVATE</div>
+      <div class="digital-card__pan">{{ cardPan() }}</div>
+      <div class="digital-card__footer">
+        <div>
+          <span class="digital-card__label">Titolare</span>
+          <span class="digital-card__name">{{ cardHolder() }}</span>
+        </div>
+        <div>
+          <span class="digital-card__label">Scadenza</span>
+          <span class="digital-card__exp">{{ cardExpiry }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

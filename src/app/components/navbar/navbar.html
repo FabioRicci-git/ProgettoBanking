@@ -58,6 +58,13 @@
     </li>
   </ul>
 
+  <div class="navbar-balance" aria-live="polite">
+    <span class="navbar-balance-label">Saldo</span>
+    <strong class="navbar-balance-value">
+      {{ bank.balance() | number:'1.2-2' }} {{ bank.currency() }}
+    </strong>
+  </div>
+
   <div class="navbar-actions">
     <button type="button" class="btn-logout" (click)="logout()">Logout</button>
   </div>

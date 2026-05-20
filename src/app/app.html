@@ -1,54 +1,52 @@
-<div class="app-shell">
-  <ng-container *ngIf="authService.isAuthenticated; else loginScreen">
+<div class="app-shell" [class.app-shell--authed]="authService.isAuthenticated()">
+  <ng-container *ngIf="authService.isAuthenticated(); else loginScreen">
     <app-navbar></app-navbar>
 
     <main class="page-main">
-      <section class="page-panel" *ngIf="isPage('#home')" id="home">
-        <div class="page-head">
-          <div class="brand-row"
-            ><span class="brand-logo" aria-hidden="true"><app-icon name="brand" /></span
-            ><span class="brand-text">Private Digital Banking</span></div
-          >
-          <span class="page-badge">Home</span>
-          <h1>Benvenuto in ProgettoBanking</h1>
-          <p>Accedi rapidamente alle operazioni bancarie più importanti: saldo, deposito, prelievo, conversioni e movimenti.</p>
+      <section class="page-panel page-panel--home" *ngIf="isPage('#home')" id="home">
+        <div class="home-hero">
+          <div class="home-hero__top">
+            <span class="page-badge">Home</span>
+            <p class="home-greeting" *ngIf="bankStore.ownerName()">Ciao, {{ bankStore.ownerName() }}</p>
+            <p class="home-greeting" *ngIf="!bankStore.ownerName()">Il tuo conto</p>
+          </div>
+          <p class="home-balance-label">Saldo disponibile</p>
+          <p class="home-balance-amount">
+            {{ bankStore.balance() | number:'1.2-2' }}
+            <span class="home-balance-currency">{{ bankStore.currency() }}</span>
+          </p>
+          <div class="home-quick-actions">
+            <button type="button" class="home-qa home-qa--primary" (click)="navigateTo('#deposito')">
+              <span class="home-qa-icon">+</span> Deposita
+            </button>
+            <button type="button" class="home-qa" (click)="navigateTo('#prelievo')">Preleva</button>
+            <button type="button" class="home-qa" (click)="navigateTo('#lista-movimenti')">Movimenti</button>
+            <button type="button" class="home-qa" (click)="navigateTo('#profilo')">Profilo</button>
+          </div>
         </div>
 
+        <div class="home-section-title">
+          <h2>Azioni rapide</h2>
+        </div>
         <div class="hero-grid">
           <div class="hero-card" (click)="navigateTo('#saldo')">
             <span class="hero-icon" aria-hidden="true"><app-icon name="hero-balance" /></span>
-            <h2>Saldo aggiornato</h2>
-            <p>Controlla il tuo saldo in tempo reale con un'esperienza chiara e sicura.</p>
-            <button class="card-button">Vai al Saldo</button>
+            <h3>Saldo</h3>
+            <p>Controlla il saldo in tempo reale.</p>
           </div>
           <div class="hero-card" (click)="navigateTo('#deposito')">
             <span class="hero-icon" aria-hidden="true"><app-icon name="hero-operations" /></span>
-            <h2>Depositi e prelievi</h2>
-            <p>Esegui movimenti con pochi clic e tieni traccia delle operazioni effettuate.</p>
-            <button class="card-button">Vai ai Movimenti</button>
+            <h3>Deposito</h3>
+            <p>Aggiungi fondi al conto.</p>
           </div>
           <div class="hero-card" (click)="navigateTo('#converti-fiat')">
             <span class="hero-icon" aria-hidden="true"><app-icon name="hero-convert" /></span>
-            <h2>Conversioni</h2>
-            <p>Passa da fiat a crypto e viceversa con tassi immediatamente visibili.</p>
-            <button class="card-button">Vai alle Conversioni</button>
+            <h3>Conversioni</h3>
+            <p>Cambia valuta o crypto.</p>
           </div>
         </div>
 
-        <div class="stats-section">
-          <div class="stat-item">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">Accesso</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">Sicuro</div>
-            <div class="stat-label">Sistema</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">Veloce</div>
-            <div class="stat-label">Operazioni</div>
-          </div>
-        </div>
+        <app-dashboard-charts></app-dashboard-charts>
       </section>
 
       <section class="page-panel" *ngIf="isPage('#saldo')" id="saldo">
@@ -129,11 +127,9 @@
         <div class="page-head">
           <span class="page-badge">Profilo</span>
           <h1>Il tuo profilo</h1>
-          <p>Visualizza le informazioni del tuo account e gestisci le impostazioni personali.</p>
+          <p>Dati del conto e carta digitale di anteprima.</p>
         </div>
-        <div class="info-card">
-          <p>Puoi aggiornare i dati dell’account, gestire le preferenze di sicurezza e visualizzare i dettagli dell’utente in modo chiaro.</p>
-        </div>
+        <app-profilo></app-profilo>
       </section>
     </main>
 
@@ -144,18 +140,21 @@
       <div class="login-card">
         <div class="login-header">
           <h1>Login</h1>
-          <p>Accedi con email o nome utente e password per entrare in ProgettoBanking.</p>
+          <p>Inserisci il numero del conto per entrare in ProgettoBanking.</p>
         </div>
 
         <form class="login-form" (submit)="submitLogin($event)">
           <label>
-            Email o nome utente
-            <input type="text" placeholder="Inserisci email o nome utente" [value]="credential()" (input)="credential.set($any($event.target).value)" />
-          </label>
-
-          <label>
-            Password
-            <input type="password" placeholder="Password" [value]="password()" (input)="password.set($any($event.target).value)" />
+            Numero conto
+            <input
+              type="text"
+              inputmode="numeric"
+              autocomplete="off"
+              placeholder="es. 1"
+              [value]="accountNumber()"
+              (input)="accountNumber.set($any($event.target).value)"
+            />
+            <span class="login-hint">Inserisci l’identificativo del conto, ad esempio <strong>1</strong>.</span>
           </label>
 
           <div class="login-error" *ngIf="loginError()">{{ loginError() }}</div>

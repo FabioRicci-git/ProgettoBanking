@@ -1,0 +1,101 @@
+<section class="dash-charts" aria-label="Andamento conto">
+  <header class="dash-head">
+    <div>
+      <h2>Panoramica</h2>
+      <p>Andamento del saldo e flussi del conto</p>
+    </div>
+  </header>
+
+  <div class="dash-grid">
+    <article class="dash-card dash-card--line">
+      <header class="dash-card-head">
+        <span class="dash-pill">Saldo nel tempo</span>
+        <span class="dash-value">{{ bank.balance() | number:'1.2-2' }} {{ bank.currency() }}</span>
+      </header>
+
+      <div class="dash-chart-wrap" *ngIf="balanceSeries().length >= 2; else lineFallback">
+        <div class="chart-canvas">
+          <svg class="dash-svg" viewBox="0 0 100 40" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <defs>
+              <linearGradient id="dashAreaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#6366f1" stop-opacity="0.35" />
+                <stop offset="100%" stop-color="#6366f1" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="dashLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#818cf8" />
+                <stop offset="50%" stop-color="#3b82f6" />
+                <stop offset="100%" stop-color="#22d3ee" />
+              </linearGradient>
+            </defs>
+            <g class="dash-grid-lines">
+              <line
+                *ngFor="let gy of gridLinesY()"
+                x1="10"
+                [attr.x2]="90"
+                [attr.y1]="gy"
+                [attr.y2]="gy"
+              />
+            </g>
+            <path class="dash-area" [attr.d]="areaPathD()" fill="url(#dashAreaGrad)" />
+            <path
+              class="dash-line"
+              [attr.d]="linePathD()"
+              fill="none"
+              stroke="url(#dashLineGrad)"
+              stroke-width="1.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <circle
+              *ngFor="let dot of chartDots()"
+              class="dash-dot"
+              [attr.cx]="dot.x"
+              [attr.cy]="dot.y"
+              r="1.4"
+            />
+          </svg>
+        </div>
+        <div class="dash-xlabels" *ngIf="edgeLabels() as el">
+          <span>{{ el.start }}</span>
+          <span>{{ el.end }}</span>
+        </div>
+      </div>
+
+      <ng-template #lineFallback>
+        <div class="dash-fallback">
+          <p>Servono almeno due movimenti per il grafico.</p>
+          <p class="dash-fallback-balance">
+            Saldo attuale: <strong>{{ bank.balance() | number:'1.2-2' }} {{ bank.currency() }}</strong>
+          </p>
+        </div>
+      </ng-template>
+    </article>
+
+    <article class="dash-card dash-card--bars">
+      <header class="dash-card-head">
+        <span class="dash-pill">Flussi</span>
+        <span class="dash-sub">Depositi vs prelievi</span>
+      </header>
+      <div class="bars-visual">
+        <div class="bar-group">
+          <div class="bar-row">
+            <span class="bar-label">Depositi</span>
+            <span class="bar-amount">{{ depositWithdrawBars().depositTotal | number:'1.2-2' }} {{ bank.currency() }}</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill bar-fill--in" [style.width.%]="depositWithdrawBars().depositPct"></div>
+          </div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-row">
+            <span class="bar-label">Prelievi</span>
+            <span class="bar-amount">{{ depositWithdrawBars().withdrawTotal | number:'1.2-2' }} {{ bank.currency() }}</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill bar-fill--out" [style.width.%]="depositWithdrawBars().withdrawPct"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

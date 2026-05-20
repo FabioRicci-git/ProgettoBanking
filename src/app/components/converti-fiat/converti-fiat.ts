@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BankStore } from '../../app.state';
+import { AuthService } from '../../auth.service';
+import { BankingApiService } from '../../servizi/servizio';
 
 @Component({
   standalone: true,
@@ -10,35 +11,36 @@ import { BankStore } from '../../app.state';
   styleUrl: './converti-fiat.css',
 })
 export class ConvertiFiat {
-  protected readonly bank = inject(BankStore);
-  protected readonly amount = signal('');
+  private readonly api = inject(BankingApiService);
+  private readonly auth = inject(AuthService);
+
   protected readonly currency = signal('USD');
   protected readonly result = signal('');
   protected readonly error = signal('');
-
-  protected onAmountChange(event: Event) {
-    this.error.set('');
-    this.result.set('');
-    this.amount.set((event.target as HTMLInputElement).value);
-  }
+  protected readonly pending = signal(false);
 
   protected convert() {
-    const amount = Number(this.amount());
-    const currency = this.currency();
-    if (!amount || amount <= 0) {
-      this.error.set('Inserisci un importo valido.');
+    const id = this.auth.accountId();
+    if (!id) {
+      this.error.set('Sessione non valida.');
       return;
     }
 
-    const rates: Record<string, number> = { USD: 1.05, GBP: 0.86 };
-    const rate = rates[currency];
-    if (!rate) {
-      this.error.set('Valuta non supportata.');
-      return;
-    }
-    const result = amount * rate;
-    this.bank.convertFiat(amount, currency, rate);
-    this.result.set(`${result.toFixed(2)} ${currency}`);
-    this.amount.set('');
+    this.pending.set(true);
+    this.error.set('');
+    this.result.set('');
+    this.api.convertFiat(id, this.currency()).subscribe({
+      next: (res) => {
+        this.result.set(
+          `Saldo ${res.original_balance.toFixed(2)} ${res.from_currency} ≈ ` +
+            `${res.converted_balance.toFixed(2)} ${res.to_currency} (tasso ${res.rate})`,
+        );
+        this.pending.set(false);
+      },
+      error: (err: unknown) => {
+        this.error.set(err instanceof Error ? err.message : 'Errore nella conversione.');
+        this.pending.set(false);
+      },
+    });
   }
 }

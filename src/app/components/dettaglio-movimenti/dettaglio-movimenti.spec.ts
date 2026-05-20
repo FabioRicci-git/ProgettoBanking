@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { DettaglioMovimenti } from './dettaglio-movimenti';
 
@@ -8,9 +10,9 @@ describe('DettaglioMovimenti', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DettaglioMovimenti]
-    })
-    .compileComponents();
+      imports: [DettaglioMovimenti],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DettaglioMovimenti);
     component = fixture.componentInstance;
